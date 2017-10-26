@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Instablack</string>
+
+    <string name="title_feed">Feed</string>
+    <string name="title_usuarios">Usuarios</string>
+    <string name="title_nuevo_post">Publicar</string>
+    <string name="title_cuenta">Perfil</string>
+    <string name="filtro_original">Original</string>
+    <string name="filtro_vintage">Vintage</string>
+    <string name="filtro_contraste">Contraste</string>
+    <string name="filtro_brillo">Brillo</string>
+    <string name="filtro_tinta">Tinta</string>
+    <string name="filtro_hard_light">Hard Light</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_picker">Tomar imagen desde</string>
+    <string name="like_count">Le gusta a %1$d personas</string>
+    <string name="like_count_1">Le gusta a 1 persona</string>
+    <string name="comentarios_count">Ver %1$d comentarios</string>
+    <string name="comentarios_count_1">Ver comentario</string>
+</resources>
