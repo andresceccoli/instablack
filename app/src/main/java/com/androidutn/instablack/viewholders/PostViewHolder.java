@@ -1,6 +1,7 @@
 package com.androidutn.instablack.viewholders;
 
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -11,8 +12,10 @@ import com.androidutn.instablack.R;
 import com.androidutn.instablack.firebase.FirebaseUtils;
 import com.androidutn.instablack.model.Post;
 import com.androidutn.instablack.model.Usuario;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +31,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     ImageView mAutorImagen;
     TextView mAutorNombre;
     ImageView mImagen;
+    ImageView mLike;
     TextView mLikeCount;
     TextView mTexto;
     TextView mFecha;
@@ -97,6 +101,24 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         } else {
             mComentariosCount.setVisibility(View.GONE);
         }
+
+        FirebaseDatabase.getInstance().getReference("Likes")
+                .child(post.getId())
+                .child(FirebaseAuth.getInstance().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Boolean userLike = (Boolean) dataSnapshot.getValue();
+                        if (userLike != null && userLike) {
+                            mLike.setColorFilter(ContextCompat.getColor(itemView.getContext(), R.color.colorAccent));
+                        } else {
+                            mLike.setColorFilter(ContextCompat.getColor(itemView.getContext(), android.R.color.primary_text_dark));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
     }
 
 }
