@@ -20,4 +20,6 @@
     <string name="like_count_1">Le gusta a 1 persona</string>
     <string name="comentarios_count">Ver %1$d comentarios</string>
     <string name="comentarios_count_1">Ver comentario</string>
+    <string name="seguir_ok">Agregado</string>
+    <string name="seguir_no_encontrado">No encontrado</string>
 </resources>

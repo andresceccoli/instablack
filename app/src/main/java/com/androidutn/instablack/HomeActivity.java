@@ -61,7 +61,15 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void mostrarUsuarios() {
+        UsuariosFragment fragment = (UsuariosFragment)
+                getSupportFragmentManager().findFragmentByTag("usuarios");
+        if (fragment == null) {
+            fragment = UsuariosFragment.newInstance();
+        }
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, fragment, "usuarios")
+                .commit();
     }
 
     private void seleccionarImagen() {

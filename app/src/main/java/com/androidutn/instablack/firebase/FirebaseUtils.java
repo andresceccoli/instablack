@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.androidutn.instablack.model.Comentario;
 import com.androidutn.instablack.model.Post;
 import com.androidutn.instablack.model.PostRef;
+import com.androidutn.instablack.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,21 +26,55 @@ public class FirebaseUtils {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
-            // TODO: implementar
+            Usuario usuario = new Usuario();
+            usuario.setId(user.getUid());
+            usuario.setEmail(user.getEmail());
+            usuario.setNombre(user.getDisplayName());
+            if (user.getPhotoUrl() != null)
+                usuario.setImagenUrl(user.getPhotoUrl().toString());
+
+            FirebaseDatabase.getInstance().getReference("Usuarios")
+                    .child(user.getUid()).setValue(usuario, listener);
         }
     }
 
     public static void insertarEmail(@Nullable DatabaseReference.CompletionListener listener) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // TODO: implementar
+            String email = user.getEmail();
+            email = email.replace('@', '_').replace('.', '_');
+
+            FirebaseDatabase.getInstance()
+                    .getReference("Emails")
+                    .child(email)
+                    .setValue(user.getUid(), listener);
         }
     }
 
-    public static void seguirUsuario(final String uid, @Nullable final DatabaseReference.CompletionListener listener) {
+    public static void seguirUsuario(final String uid,
+                                     @Nullable final DatabaseReference.CompletionListener listener) {
         final String authUid = FirebaseAuth.getInstance().getUid();
         if (authUid != null) {
-            // TODO: implementar
+            FirebaseDatabase.getInstance()
+                    .getReference("Siguiendo")
+                    .child(authUid)
+                    .child(uid)
+                    .setValue(true, // armamos un indice
+                            new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError == null) {
+                                FirebaseDatabase.getInstance()
+                                        .getReference("Seguidores")
+                                        .child(uid)
+                                        .child(authUid)
+                                        .setValue(true, listener);
+                            } else {
+                                if (listener != null)
+                                    listener.onComplete(databaseError, databaseReference);
+                            }
+                        }
+                    });
         }
     }
 
