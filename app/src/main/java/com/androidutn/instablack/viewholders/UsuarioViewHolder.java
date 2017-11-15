@@ -10,6 +10,7 @@ import com.androidutn.instablack.R;
 import com.androidutn.instablack.model.Usuario;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,10 +19,9 @@ import butterknife.ButterKnife;
 
 public class UsuarioViewHolder extends RecyclerView.ViewHolder {
 
-    // TODO: bind views
-    ImageView mImagen;
-    TextView mNombre;
-    TextView mEmail;
+    @BindView(R.id.usuario_imagen) ImageView mImagen;
+    @BindView(R.id.usuario_nombre) TextView mNombre;
+    @BindView(R.id.usuario_email) TextView mEmail;
 
     public UsuarioViewHolder(View itemView) {
         super(itemView);

@@ -1,7 +1,9 @@
 package com.androidutn.instablack;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +25,8 @@ import java.util.UUID;
 public class HomeActivity extends BaseActivity {
 
     private static final int REQUEST_IMAGEN = 201;
+    private static final int REQUEST_PERMISOS = 300;
+    private static final int REQUEST_FILTROS = 400;
     private Uri mArchivoUri;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -73,7 +79,13 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void seleccionarImagen() {
-        // TODO: Chequear permisos
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    REQUEST_PERMISOS);
+            return;
+        }
 
         File archivoTemp = new File(getExternalCacheDir(), UUID.randomUUID().toString());
         mArchivoUri = Uri.fromFile(archivoTemp);
@@ -121,10 +133,28 @@ public class HomeActivity extends BaseActivity {
                 }
 
                 if (mArchivoUri != null) {
-                    // TODO: Abrir Filtros
+                    Intent filtros = new Intent(this, FiltrosActivity.class);
+                    filtros.putExtra(FiltrosActivity.EXTRA_URI, mArchivoUri);
+                    startActivityForResult(filtros, REQUEST_FILTROS);
                 }
             }
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_PERMISOS) {
+            boolean granted = true;
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    granted = false;
+                    break;
+                }
+            }
+
+            if (granted) {
+                seleccionarImagen();
+            }
+        }
+    }
 }
