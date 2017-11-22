@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 
+import com.androidutn.instablack.viewholders.FeedFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
@@ -63,7 +64,16 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void mostrarFeed() {
+        FeedFragment fragment = (FeedFragment)
+                getSupportFragmentManager().findFragmentByTag("feed");
 
+        if (fragment == null) {
+            fragment = new FeedFragment();
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, fragment, "feed")
+                .commit();
     }
 
     private void mostrarUsuarios() {

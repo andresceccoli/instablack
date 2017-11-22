@@ -109,7 +109,10 @@ public class FirebaseUtils {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null) {
-                    // TODO: actualizar feed del autor
+                    FirebaseDatabase.getInstance().getReference("Feed")
+                            .child(post.getAutorUid())
+                            .child(post.getId())
+                            .setValue(ref);
 
                     actualizarFeedSeguidores(post, ref, listener);
                 } else {
@@ -129,7 +132,10 @@ public class FirebaseUtils {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String uid = ds.getKey();
 
-                    // TODO: actualizar feed seguidor
+                    FirebaseDatabase.getInstance().getReference("Feed")
+                            .child(uid)
+                            .child(post.getId())
+                            .setValue(ref);
                 }
 
                 if (listener != null) {

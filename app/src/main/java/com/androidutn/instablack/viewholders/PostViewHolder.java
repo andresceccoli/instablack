@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,15 +28,14 @@ import butterknife.ButterKnife;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
 
-    // TODO: bind views
-    ImageView mAutorImagen;
-    TextView mAutorNombre;
-    ImageView mImagen;
-    ImageView mLike;
-    TextView mLikeCount;
-    TextView mTexto;
-    TextView mFecha;
-    TextView mComentariosCount;
+    @BindView(R.id.post_user_imagen) ImageView mAutorImagen;
+    @BindView(R.id.post_user_nombre) TextView mAutorNombre;
+    @BindView(R.id.post_imagen) ImageView mImagen;
+    @BindView(R.id.post_like) ImageView mLike;
+    @BindView(R.id.post_like_count) TextView mLikeCount;
+    @BindView(R.id.post_texto) TextView mTexto;
+    @BindView(R.id.post_fecha) TextView mFecha;
+    @BindView(R.id.post_comentario_count) TextView mComentariosCount;
 
     private Post post;
 

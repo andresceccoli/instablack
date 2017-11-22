@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.androidutn.instablack">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,8 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />
-        <activity android:name=".FiltrosActivity"></activity>
+        <activity android:name=".FiltrosActivity" />
+        <activity android:name=".PublicacionActivity"></activity>
     </application>
 
 </manifest>

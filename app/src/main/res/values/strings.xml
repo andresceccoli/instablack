@@ -22,4 +22,7 @@
     <string name="comentarios_count_1">Ver comentario</string>
     <string name="seguir_ok">Agregado</string>
     <string name="seguir_no_encontrado">No encontrado</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
